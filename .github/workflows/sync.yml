@@ -1,0 +1,27 @@
+name: WeRead Sync to Notion
+on:
+  schedule:
+    - cron: "0 20 * * *"  # 每天UTC 20:00运行（北京时间次日4:00）
+  workflow_dispatch:       # 允许手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+        
+      - name: Run Sync
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          DATABASE_ID: ${{ secrets.DATABASE_ID }}
+          WR_COOKIE: ${{ secrets.WR_COOKIE }}
+        run: python main.py
