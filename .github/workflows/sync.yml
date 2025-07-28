@@ -17,11 +17,25 @@ jobs:
           python-version: "3.10"
           
       - name: Install dependencies
-        run: pip install -r requirements.txt
-        
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Debug environment
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Files:"
+          ls -la
+          echo "Python version: $(python --version)"
+          echo "Pip list:"
+          pip list
+          
       - name: Run Sync
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           DATABASE_ID: ${{ secrets.DATABASE_ID }}
           WR_COOKIE: ${{ secrets.WR_COOKIE }}
-        run: python main.py
+        run: |
+          echo "Starting sync script..."
+          python main.py
+          echo "Script exit code: $?"
