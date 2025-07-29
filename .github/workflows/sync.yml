@@ -9,20 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-          
       - name: Install dependencies
-        run: |  # 确保这里正确安装依赖
-          python -m pip install --upgrade pip
-          pip install requests notion-client
-          
-      - name: Run Enhanced Sync
+        run: pip install requests notion-client
+      - name: Run Sync
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           DATABASE_ID: ${{ secrets.DATABASE_ID }}
           WR_COOKIE: ${{ secrets.WR_COOKIE }}
-        run: python enhanced_sync_v2.py
+        run: python sync_script.py
