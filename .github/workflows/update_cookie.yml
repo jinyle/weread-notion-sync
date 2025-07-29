@@ -1,0 +1,22 @@
+name: Update WeRead Cookie
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get current date
+        id: date
+        run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        
+      - name: Create cookie reminder
+        run: |
+          echo "请手动更新微信读书Cookie："
+          echo "1. 访问 https://weread.qq.com/"
+          echo "2. 登录后按F12 → Application → Cookies"
+          echo "3. 复制全部Cookie"
+          echo "4. 更新仓库Secrets中的 WR_COOKIE"
+          echo "更新后请重新运行同步工作流"
+          echo "下次更新日期: ${{ env.DATE }}"
+        shell: bash
