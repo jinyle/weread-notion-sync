@@ -20,4 +20,4 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           DATABASE_ID: ${{ secrets.DATABASE_ID }}
           WR_COOKIE: ${{ secrets.WR_COOKIE }}  # 使用您现有的Cookie
-        run: python enhanced_sync.py
+        run: python enhanced_sync_v2.py  # 使用新版本脚本
